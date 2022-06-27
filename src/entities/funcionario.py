@@ -1,4 +1,3 @@
-from datetime import date
 from src.business.matricula import gera_matricula
 
 
@@ -7,6 +6,6 @@ class Funcionario:
         self.matricula: str = gera_matricula()
         self.nome: str = nome
         self.cpf: str = cpf
-        self.data_admissao: date = data_admissao
+        self.data_admissao: str = data_admissao
         self.cargo: str = cargo
         self.comissao: str = comissao
