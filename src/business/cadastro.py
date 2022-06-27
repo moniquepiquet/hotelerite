@@ -12,7 +12,7 @@ class Cadastro:
                                       database='hotelerite')
         cursor = cnx.cursor()
         adiciona_funcionario = (
-            """INSERT INTO veiculo
+            """INSERT INTO funcionario
             (matricula, nome, cpf, data_admissao, cargo, comissao) 
             VALUES ( %(matricula)s, %(nome)s, %(cpf)s, %(data_admissao)s, %(cargo)s, %(comissao)s)"""
         )
@@ -28,7 +28,7 @@ class Cadastro:
         cnx.commit()
         cursor.close()
         cnx.close()
-        
+
     def remover_por_matricula(self, matricula: int):
         funcionario = self.consultar_por_matricula(matricula)
         resposta = input(f"Deseja mesmo excluir o funcionário {funcionario.matricula}? [S/N]")

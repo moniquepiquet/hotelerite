@@ -13,13 +13,12 @@ def cadastrar_funcionario():
     dados = request.json
 
     funcionario = Funcionario(
-        dados['matricula'],
         dados['nome'],
         dados['cpf'],
         dados['data_admissao'],
         dados['cargo'],
         dados['comissao'])
 
-    cadastro_funcionario.inserir(funcionario)
+    cadastro_funcionario.cadastrar_funcionario(funcionario)
 
     return Response("Funcionario cadastrado!", 201)
