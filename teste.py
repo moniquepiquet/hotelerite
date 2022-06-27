@@ -1,21 +1,13 @@
-from datetime import date
 from src.business.cadastro import Cadastro
 from src.entities.funcionario import Funcionario
 
-today = date.today()
 
-gran_finale = date(2022, 7, 18)
+f1 = Funcionario("Monique", "70341102121", (2022, 6, 30), "Cientista de Dados", "Sim")
 
-diff = gran_finale - today
+cadastro = Cadastro()
 
-print(diff.days)
+cadastro.cadastrar_funcionario(f1)
 
-# f1 = Funcionario(123, "Monique")
-
-# cadastro = Cadastro()
-
-# cadastro.cadastrar_funcionario(f1)
-
-# f = cadastro.consultar_por_matricula(123)
-
-# print(f.nome)
+print(f1.nome)
+print(f1.data_admissao)
+print(f1.matricula)
