@@ -22,3 +22,8 @@ def cadastrar_funcionario():
     cadastro_funcionario.cadastrar_funcionario(funcionario)
 
     return Response("Funcionario cadastrado!", 201)
+    
+@funcionarios.route("/consulta", methods=['GET'])
+def consulta():
+    cadastro = Cadastro()
+    return (cadastro.consultar_por_matricula())

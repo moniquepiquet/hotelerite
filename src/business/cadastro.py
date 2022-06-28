@@ -1,3 +1,4 @@
+from multiprocessing import connection
 import mysql.connector
 from src.entities.funcionario import Funcionario
 
@@ -21,7 +22,7 @@ class Cadastro:
             "nome": funcionario.nome,
             "cpf": funcionario.cpf,
             "data_admissao": funcionario.data_admissao,
-            "cargo": funcionario.cargo, 
+            "cargo": funcionario.cargo,
             "comissao": funcionario.comissao
         }
         cursor.execute(adiciona_funcionario, dados)
@@ -31,7 +32,8 @@ class Cadastro:
 
     def remover_por_matricula(self, matricula: int):
         funcionario = self.consultar_por_matricula(matricula)
-        resposta = input(f"Deseja mesmo excluir o funcionário {funcionario.matricula}? [S/N]")
+        resposta = input(
+            f"Deseja mesmo excluir o funcionário {funcionario.matricula}? [S/N]")
 
         if resposta == 'S' or resposta == 's':
             self.__funcionarios.remove(funcionario)
@@ -39,17 +41,30 @@ class Cadastro:
         else:
             print("Operação cancelada")
 
-    def consultar_por_matricula(self, matricula: int):
-        funcionario = list(filter(lambda x: x.matricula ==
-                           matricula, self.__funcionarios))
+    def consultar_por_matricula(self):
+        cnx = mysql.connector.connect(user='root', password='gweelos18',
+                                      host='127.0.0.1',
+                                      database='hotelerite')
+        cursor = cnx.cursor()
+        query = (
+            """SELECT matricula, nome, cpf, data_admissao, cargo, comissao FROM funcionario
+            WHERE matricula = %(matricula)s"""
+        )
+        matricula = "010183"
+        cursor.execute(query, matricula)
+        cursor.close()
+        cnx.close()
 
-        if funcionario == []:
-            raise IndexError("Funcionário não encontrado")  # criar a exception
+    #     funcionario = list(filter(lambda x: x.matricula ==
+    #                        matricula, self.__funcionarios))
 
-        return funcionario[0]
+    #     if funcionario == []:
+    #         raise IndexError("Funcionário não encontrado")  # criar a exception
 
-    def alterar_dados(self):
-        pass
+    #     return funcionario[0]
 
-    def listar_funcionarios(self):
-        map(lambda x: print(x.nome), self.__funcionarios)
+    # def alterar_dados(self):
+    #     pass
+
+    # def listar_funcionarios(self):
+    #     map(lambda x: print(x.nome), self.__funcionarios)
