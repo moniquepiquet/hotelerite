@@ -48,10 +48,13 @@ class Cadastro:
         cursor = cnx.cursor()
         query = (
             """SELECT matricula, nome, cpf, data_admissao, cargo, comissao FROM funcionario
-            WHERE matricula = %(matricula)s"""
+            WHERE matricula = %s"""
         )
-        matricula = "010183"
-        cursor.execute(query, matricula)
+        cursor.execute(query, ("010183", ))
+        my_result = cursor.fetchall()
+
+        for result in my_result:
+            print(result)
         cursor.close()
         cnx.close()
 
